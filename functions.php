@@ -97,8 +97,9 @@ add_action( 'wp_enqueue_scripts', 'scout_troop_method' );
 // Eliminate the home-page articles from the category widget
 function exclude_widget_categories($args){
 	$cat = get_term_by( 'slug', 'home-page', 'category' );
-	$exclude = $cat->term_id; // The IDs of the excluding categories
-	$args["exclude"] = $exclude;
+	if ( $cat ) {
+		$args["exclude"] = $cat->term_id; // The IDs of the excluding categories
+	}
 	return $args;
 }
 add_filter("widget_categories_args","exclude_widget_categories");
